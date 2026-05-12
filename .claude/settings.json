@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /tmp/cc-agent/64556760/project && npm run build > /tmp/build-output.txt 2>&1; code=$?; if [ $code -ne 0 ]; then cat /tmp/build-output.txt; exit 2; fi; exit 0",
+            "timeout": 120,
+            "statusMessage": "Verifying build...",
+            "asyncRewake": true,
+            "rewakeMessage": "Build failed. Fix the errors shown above and run npm run build again.",
+            "rewakeSummary": "Build failed after your last change."
+          }
+        ]
+      }
+    ]
+  }
+}

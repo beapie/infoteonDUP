@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infoteon — AI Voice Agents</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+    .gradient-text { background: linear-gradient(to right, #2563eb, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gradient-btn { background: linear-gradient(to right, #2563eb, #06b6d4); }
+    .gradient-footer-text { background: linear-gradient(to right, #60a5fa, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    @keyframes ping { 75%,100% { transform: scale(2); opacity: 0; } }
+    @keyframes pulse { 50% { opacity: .5; } }
+    .animate-ping { animation: ping 1s cubic-bezier(0,0,0.2,1) infinite; }
+    .animate-pulse { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+    .faq-answer { display: none; }
+    .faq-answer.open { display: block; }
+    .uc-btn.active { background: linear-gradient(to right, #2563eb, #06b6d4); color: white; }
+    .hero-section { background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #ecfeff 100%); }
+    .dark .hero-section { background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%); }
+    #lang-dropdown { display: none; }
+    #lang-dropdown.open { display: block; }
+  </style>
+</head>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-200">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-200">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <span class="text-2xl font-bold gradient-text">Infoteon</span>
+      <div class="hidden md:flex items-center space-x-3">
+        <a href="https://ai4b.app/login" target="_blank" rel="noopener noreferrer" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium" id="t-nav-login">Login</a>
+
+        <!-- Language switcher -->
+        <div class="relative">
+          <button id="lang-btn" onclick="toggleLang(event)" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-sm font-semibold text-gray-700 dark:text-gray-300">
+            <span id="lang-flag">🇺🇸</span>
+            <span id="lang-label">EN</span>
+            <svg id="lang-chevron" class="w-3 h-3 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div id="lang-dropdown" class="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
+            <button onclick="setLang('en','🇺🇸','EN')" class="lang-opt w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+              <span>🇺🇸</span><span>English</span>
+            </button>
+            <button onclick="setLang('pt','🇧🇷','PT')" class="lang-opt w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+              <span>🇧🇷</span><span>Português</span>
+            </button>
+            <button onclick="setLang('es','🇪🇸','ES')" class="lang-opt w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+              <span>🇪🇸</span><span>Español</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Theme toggle -->
+        <button id="theme-btn" onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle theme">
+          <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg id="icon-sun" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+
+        <button class="gradient-btn text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200" id="t-nav-demo">Watch Demo</button>
+      </div>
+      <div class="md:hidden flex items-center gap-2">
+        <!-- Mobile lang -->
+        <button onclick="toggleLang(event)" class="flex items-center gap-1 px-2.5 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-sm font-semibold text-gray-700 dark:text-gray-300">
+          <span id="lang-flag-m">🇺🇸</span><span id="lang-label-m" class="text-xs">EN</span>
+        </button>
+        <!-- Mobile theme -->
+        <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 transition-colors">
+          <svg id="icon-moon-m" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg id="icon-sun-m" class="hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="text-gray-700 dark:text-gray-300 font-semibold" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">Menu</button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden py-4 space-y-3">
+      <a href="https://ai4b.app/login" target="_blank" class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium py-2">Login</a>
+      <button class="w-full gradient-btn text-white px-6 py-2.5 rounded-full font-semibold">Watch Demo</button>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero-section relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+  <div class="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl animate-pulse" style="background:rgba(96,165,250,0.2);"></div>
+  <div class="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl animate-pulse" style="background:rgba(34,211,238,0.2); animation-delay:1s;"></div>
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold mb-8">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+        </span>
+        <span id="t-hero-badge">AI That Calls Back in Under 60 Seconds</span>
+      </div>
+      <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+        <span id="t-hero-h1">Stop Losing Revenue to</span><br>
+        <span class="gradient-text" id="t-hero-h2">Missed Calls &amp; Slow Follow-Up</span>
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed" id="t-hero-sub">
+        Infoteon's AI voice agents answer every call, qualify every lead, and book every appointment — 24/7 — so your sales team only talks to buyers who are ready to close.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <button class="gradient-btn text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-200 flex items-center gap-2">
+          <span id="t-hero-cta">Watch Demo</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.39 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.13 6.13l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </button>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="flex -space-x-2">
+            <div class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800" style="background:linear-gradient(135deg,#60a5fa,#2563eb)"></div>
+            <div class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800" style="background:linear-gradient(135deg,#22d3ee,#0891b2)"></div>
+            <div class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800" style="background:linear-gradient(135deg,#c084fc,#7c3aed)"></div>
+          </div>
+          <div class="text-left">
+            <p class="text-sm font-semibold text-gray-900 dark:text-white" id="t-hero-active">AI Agent Active</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400" id="t-hero-calls">Handling 247 calls/day</p>
+          </div>
+        </div>
+        <div class="rounded-lg p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-900 dark:to-gray-900">
+          <div class="flex items-start gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style="background:#2563eb">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.39 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.13 6.13l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300 italic flex-1 text-left" id="t-hero-speech">
+              "Hi, I'm calling from Infoteon — you requested more information about our plans. I have a couple of quick questions to point you in the right direction. Do you have 90 seconds?"
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span id="t-hero-live">Live transcription • Sentiment: Positive • Lead: Qualified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <span id="t-feat-h1">Four Ways Businesses</span> <span class="gradient-text" id="t-feat-h2">Win More Revenue with Infoteon</span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" id="t-feat-sub">
+        Every feature is built around one goal: turning phone conversations into booked meetings, closed deals, and happier customers — without adding headcount.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Instant Lead Qualification</h3>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">The AI calls back form submissions within 60 seconds, asks budget, authority, and timeline questions, and routes only serious buyers to a human closer. Bad-fit leads are logged with reasons — your team never wastes time on cold prospects.</p>
+        <div class="mt-6 text-blue-600 font-semibold t-learn-more">Learn more →</div>
+      </div>
+      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.39 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.13 6.13l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Appointment Setting on Autopilot</h3>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Interested prospects disappear when booking requires voicemail or back-and-forth messages. Infoteon checks your calendar, proposes open slots, confirms the meeting, and sends reminders — converting intent into revenue before it goes cold.</p>
+        <div class="mt-6 font-semibold t-learn-more" style="color:#a855f7">Learn more →</div>
+      </div>
+      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#f97316,#ef4444)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Outbound Re-Engagement Campaigns</h3>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Stale leads, no-shows, and lost deals are untapped pipeline. The AI dials your CRM lists, handles the repetitive first-touch work, overcomes common objections, and hands off only warm opportunities — keeping your SDRs focused on closing.</p>
+        <div class="mt-6 font-semibold t-learn-more" style="color:#f97316">Learn more →</div>
+      </div>
+      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#22c55e,#14b8a6)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">After-Hours Call Coverage</h3>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Every missed call after 5 PM is a lead your competitor may answer. Infoteon captures caller details, logs structured messages, and routes urgent cases in real time — so no inquiry slips through, even when your team is offline.</p>
+        <div class="mt-6 font-semibold t-learn-more" style="color:#22c55e">Learn more →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES ADVANCED -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block bg-blue-900/50 text-blue-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">Platform Features</span>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+        The Intelligence Behind Every <span class="gradient-text">Revenue-Generating Call</span>
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">AI Knowledge Base</h3>
+        <p class="text-gray-400 mb-6">Train the agent on your real business — no generic answers.</p>
+        <ul class="space-y-2">
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">✓</span> Upload pricing &amp; policies</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">✓</span> Connect your SOPs &amp; FAQs</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">✓</span> Consistent, accurate responses</li>
+        </ul>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">Post-Call Analytics</h3>
+        <p class="text-gray-400 mb-6">Every call becomes actionable business intelligence.</p>
+        <ul class="space-y-2">
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">✓</span> Transcripts &amp; sentiment scores</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">✓</span> Objections &amp; competitor mentions</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">✓</span> Improve scripts from real data</li>
+        </ul>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#f97316,#ef4444)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">Smart Call Transfer</h3>
+        <p class="text-gray-400 mb-6">AI handles the routine — humans close the important calls.</p>
+        <ul class="space-y-2">
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">✓</span> Live transfer to your team</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">✓</span> Escalate high-value leads</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">✓</span> Reduce unnecessary interruptions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">How It Works</span>
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        What if every missed call was <span class="gradient-text">automatically converted into revenue?</span>
+      </h2>
+    </div>
+    <div class="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 max-w-5xl mx-auto">
+      <img src="/aivoice.webp" alt="AI Voice Agent Dashboard" class="w-full h-auto">
+    </div>
+  </div>
+</section>
+
+<!-- STATISTICS -->
+<section class="py-24 px-4 sm:px-6 lg:px-8" style="background:linear-gradient(135deg,#1e3a5f,#0c4a6e,#164e63)">
+  <div class="max-w-7xl mx-auto text-center">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">980+</div>
+        <div class="text-blue-200">Active Businesses</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">1M+</div>
+        <div class="text-blue-200">Calls Handled</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">98%</div>
+        <div class="text-blue-200">Satisfaction Rate</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">$900K+</div>
+        <div class="text-blue-200">Revenue Recovered</div>
+      </div>
+    </div>
+    <p class="text-blue-100 text-lg max-w-3xl mx-auto" id="t-stats-cta">
+      Hundreds of businesses are turning missed calls into booked meetings, <strong class="text-white">qualified pipelines</strong>, and closed revenue — without adding a single headcount.
+    </p>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">Use-Cases</span>
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Every Industry Has Calls to Answer <span class="gradient-text">and Revenue to Recover</span>
+      </h2>
+    </div>
+    <div class="flex flex-wrap gap-3 justify-center mb-10">
+      <button class="uc-btn active px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm transition-all" onclick="selectUC(this)">Real Estate</button>
+      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Human Resources</button>
+      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Retail</button>
+      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Legal</button>
+      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Sales Teams</button>
+      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Field Services</button>
+      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Hospitality</button>
+      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Education</button>
+      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Healthcare</button>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-10 border border-gray-200 dark:border-gray-700 text-center">
+      <p class="text-gray-500 dark:text-gray-400 text-lg">Live Agent Dashboard — Real-time call intelligence</p>
+      <p class="text-gray-400 dark:text-gray-500 mt-2 text-sm">Interactive dashboard preview available in the full app</p>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE LIBRARY -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Meet Your <span class="gradient-text">AI Voice Agents</span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Each agent is trained for a specific industry and conversation style — so every caller gets an experience that feels like it was built for them
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">M</div>
+          <div>
+            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Marcus</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">English (US)</p>
+          </div>
+          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Professional &amp; Persuasive</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Sales &amp; Business Development</p>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">E</div>
+          <div>
+            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Ellie</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">English (UK)</p>
+          </div>
+          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Friendly &amp; Empathetic</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Customer Support</p>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#f97316,#ef4444)">A</div>
+          <div>
+            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Alex</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">English (US)</p>
+          </div>
+          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#f97316,#ef4444)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Energetic &amp; Dynamic</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Marketing &amp; Outreach</p>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">R</div>
+          <div>
+            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Rachel</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Spanish</p>
+          </div>
+          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Warm &amp; Helpful</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Healthcare &amp; Wellness</p>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">Z</div>
+          <div>
+            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Zyan</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">English (AU)</p>
+          </div>
+          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Confident &amp; Technical</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Tech &amp; SaaS</p>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#22c55e,#16a34a)">C</div>
+          <div>
+            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Clara</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">French</p>
+          </div>
+          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Elegant &amp; Professional</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Luxury &amp; Retail</p>
+      </div>
+    </div>
+    <div class="text-center mt-10">
+      <button class="border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 px-8 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all">Explore All Voices</button>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        From missed call to booked meeting — <span class="gradient-text">automatically</span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        See exactly how Infoteon turns phone traffic into predictable revenue for your business.
+      </p>
+    </div>
+    <div class="space-y-4 max-w-4xl mx-auto" id="highlights">
+      <div class="highlight-item border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden">
+        <button class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleHighlight(this)">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Never Miss a Revenue Opportunity</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Every call answered, every lead captured</p>
+          </div>
+          <svg class="chevron w-5 h-5 text-gray-400 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="highlight-content hidden px-6 pb-6 dark:bg-gray-800">
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Missed calls are the easiest revenue leak to fix. Infoteon answers 100% of inbound calls instantly — capturing caller details, understanding intent, and routing every inquiry to the right outcome. No voicemail, no lost leads, no follow-up that never happens.</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Zero missed calls, 24/7</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Structured lead capture</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Intent-based routing</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> CRM logging on every call</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-item border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden">
+        <button class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleHighlight(this)">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Your Salespeople Only Talk to Buyers</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">AI qualifies — humans close</p>
+          </div>
+          <svg class="chevron w-5 h-5 text-gray-400 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="highlight-content hidden px-6 pb-6 dark:bg-gray-800">
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Stop paying your sales team to screen weak leads. Infoteon qualifies every prospect by budget, authority, timeline, and fit before a human gets involved. Hot leads transfer live, warm leads get booked, and bad-fit leads are logged with reasons.</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Budget &amp; authority screening</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Timeline qualification</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Live transfer for hot leads</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Disqualification logging</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-item border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden">
+        <button class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleHighlight(this)">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">A Fuller Calendar Without the Admin Work</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Booked meetings while you sleep</p>
+          </div>
+          <svg class="chevron w-5 h-5 text-gray-400 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="highlight-content hidden px-6 pb-6 dark:bg-gray-800">
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Delays of more than five minutes can reduce conversions by 30-50%. Infoteon qualifies the prospect, checks your live calendar, proposes available times, confirms the booking, and sends reminders — all in one conversation.</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Real-time calendar sync</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Instant booking confirmation</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Automated reminders</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> No-show reduction</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-item border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden">
+        <button class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleHighlight(this)">
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Turn Every Call into a Business Decision</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Post-call intelligence that improves revenue</p>
+          </div>
+          <svg class="chevron w-5 h-5 text-gray-400 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="highlight-content hidden px-6 pb-6 dark:bg-gray-800">
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Valuable business intelligence is hidden inside your phone conversations — objections, competitor mentions, pricing confusion, and moments where deals are won or lost. Infoteon surfaces all of it: transcripts, sentiment scores, recurring patterns, and coaching signals.</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Full call transcripts</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Objection &amp; sentiment analysis</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Coaching &amp; script improvement</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><span class="text-blue-500">✓</span> Campaign performance metrics</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-item border-2 rounded-2xl overflow-hidden" style="border-color:#2563eb">
+        <button class="w-full flex items-center justify-between p-6 text-left transition-colors" style="background:linear-gradient(135deg,#eff6ff,#ecfeff)" onclick="toggleHighlight(this)">
+          <div>
+            <span class="inline-block gradient-btn text-white text-xs font-semibold px-3 py-1 rounded-full mb-2">Our Offer</span>
+            <h3 class="text-xl font-bold text-gray-900">One Complete Package — Everything Your Business Needs</h3>
+            <p class="text-gray-500 text-sm mt-1">Done-for-you AI phone coverage, managed end to end</p>
+          </div>
+          <svg class="chevron w-5 h-5 text-gray-400 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="highlight-content hidden px-6 pb-6" style="background:#f0f9ff">
+          <p class="text-gray-600 mb-4">We offer one package that includes AI answering, appointment setting, lead qualification, customer support, and outbound campaigns — fully managed for your business. Many small businesses need better phone coverage and automation but do not want to build or manage the technology themselves. We handle all of it.</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-2 text-sm text-gray-700"><span class="text-blue-500">✓</span> AI answering &amp; lead qualification</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700"><span class="text-blue-500">✓</span> Appointment setting &amp; outbound campaigns</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700"><span class="text-blue-500">✓</span> Customer support coverage</div>
+            <div class="flex items-center gap-2 text-sm text-gray-700"><span class="text-blue-500">✓</span> Fully managed — no technical setup needed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Real Results from <span class="gradient-text">Real Businesses</span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300">Owners, operators, and founders share what changed after deploying Infoteon AI voice agents.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex mb-3">
+          <span class="text-yellow-400 text-lg">★★★★★</span>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">"We were losing leads every weekend and after hours. Infoteon now answers every call, qualifies the prospect, and books them directly into our calendar. Our sales team shows up Monday with a full pipeline — no cold prospects, just people ready to talk."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">S</div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white text-sm">Sarah Johnson</p>
+            <p class="text-gray-500 dark:text-gray-400 text-xs">Owner, Home Services Company</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex mb-3">
+          <span class="text-yellow-400 text-lg">★★★★★</span>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">"We tried to hire a receptionist to handle appointment calls. The cost, training, and turnover were exhausting. Infoteon replaced all of that — it books consultations, sends reminders, and cut our no-show rate by nearly half."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background:linear-gradient(135deg,#a855f7,#ec4899)">M</div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white text-sm">Michael Chen</p>
+            <p class="text-gray-500 dark:text-gray-400 text-xs">Founder, Medical Aesthetics Clinic</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex mb-3">
+          <span class="text-yellow-400 text-lg">★★★★★</span>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">"Our SDRs were spending 60% of their day on cold first-touch calls. After deploying Infoteon for outbound re-engagement, they only pick up the phone for warm opportunities. Pipeline velocity improved within the first two weeks."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background:linear-gradient(135deg,#f97316,#ef4444)">E</div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white text-sm">Emily Rodriguez</p>
+            <p class="text-gray-500 dark:text-gray-400 text-xs">VP of Sales, B2B SaaS</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex mb-3">
+          <span class="text-yellow-400 text-lg">★★★★★</span>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">"Dispatch was our bottleneck — missed calls, slow booking, technicians sitting idle. Infoteon answers every service call, captures job details, checks technician availability, and books the job. We increased booked jobs by 30% in the first month."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background:linear-gradient(135deg,#22c55e,#14b8a6)">D</div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white text-sm">David Park</p>
+            <p class="text-gray-500 dark:text-gray-400 text-xs">Operations Director, Field Services</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex mb-3">
+          <span class="text-yellow-400 text-lg">★★★★★</span>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">"The post-call analytics changed how we run our business. We can see exactly where leads drop off, which objections come up most, and which scripts convert. Every week we get smarter without guessing."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">L</div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white text-sm">Lisa Thompson</p>
+            <p class="text-gray-500 dark:text-gray-400 text-xs">Marketing Director, Consulting Firm</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
+        <div class="flex mb-3">
+          <span class="text-yellow-400 text-lg">★★★★★</span>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-6">"We launched a white-label AI voice service for our agency clients using Infoteon. We now offer appointment setting, lead qualification, and after-hours coverage as a managed service. It added over $4,000 in monthly recurring revenue per client."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background:linear-gradient(135deg,#f59e0b,#f97316)">J</div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-white text-sm">James Wilson</p>
+            <p class="text-gray-500 dark:text-gray-400 text-xs">Founder, Digital Marketing Agency</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">Enterprise-Grade Security</span>
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Your Data is <span class="gradient-text">Safe &amp; Secure</span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">We take security seriously. Our platform is built with enterprise-grade security measures and complies with major industry standards</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 text-center border border-gray-200 dark:border-gray-700">
+        <div class="w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-2">Penetration Testing</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">Regular security audits by third-party experts</p>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 text-center border border-gray-200 dark:border-gray-700">
+        <div class="w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-2">SSO &amp; SAML</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">Enterprise-grade single sign-on integration</p>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 text-center border border-gray-200 dark:border-gray-700">
+        <div class="w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-2">Audit Logs</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">Complete activity tracking and monitoring</p>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 text-center border border-gray-200 dark:border-gray-700">
+        <div class="w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-white mb-2">End-to-End Encryption</h3>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">AES-256 encryption for data at rest and in transit</p>
+      </div>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-10 border border-gray-200 dark:border-gray-700 text-center">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Compliance Certifications</h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-8">We maintain the highest standards of compliance to ensure your data is protected</p>
+      <div class="flex flex-wrap justify-center gap-6">
+        <div class="bg-white dark:bg-gray-700 border-2 border-green-200 dark:border-green-700 rounded-xl px-8 py-4 font-bold text-gray-800 dark:text-white">SOC 2 Type II</div>
+        <div class="bg-white dark:bg-gray-700 border-2 border-green-200 dark:border-green-700 rounded-xl px-8 py-4 font-bold text-gray-800 dark:text-white">HIPAA Compliant</div>
+        <div class="bg-white dark:bg-gray-700 border-2 border-green-200 dark:border-green-700 rounded-xl px-8 py-4 font-bold text-gray-800 dark:text-white">PCI DSS</div>
+        <div class="bg-white dark:bg-gray-700 border-2 border-green-200 dark:border-green-700 rounded-xl px-8 py-4 font-bold text-gray-800 dark:text-white">GDPR Ready</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800 transition-colors duration-200">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Frequently Asked <span class="gradient-text">Questions</span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300">Everything you need to know about putting Infoteon to work for your business</p>
+    </div>
+    <div class="space-y-3">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <button class="w-full flex justify-between items-center p-6 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+          How fast does the AI call back a new lead?
+          <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer open px-6 pb-6 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Under 60 seconds. When a form submission or inbound inquiry comes in, Infoteon triggers an immediate callback. Speed is the biggest driver of conversion — leads contacted within a minute are far more likely to convert than those reached an hour later.</div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <button class="w-full flex justify-between items-center p-6 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+          Will my customers know they are talking to an AI?
+          <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer px-6 pb-6 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Our agents use advanced neural voice models that sound natural and professional. Most callers do not distinguish them from a human representative. If your business prefers transparency, you can configure the agent to introduce itself as an AI assistant.</div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <button class="w-full flex justify-between items-center p-6 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+          What happens when a lead is too complex for the AI to handle?
+          <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer px-6 pb-6 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Infoteon is built for hybrid workflows. When a caller needs human judgment — an upset customer, a high-value lead, or a complex issue — the AI transfers the call live to the right person on your team, with full context already captured.</div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <button class="w-full flex justify-between items-center p-6 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+          How does the AI know our pricing, policies, and services?
+          <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer px-6 pb-6 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">You train it using the Knowledge Base feature. Upload your website, pricing sheets, SOPs, FAQs, and any internal documents. The AI uses that content as its source of truth — so every answer reflects your actual business, not generic information.</div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <button class="w-full flex justify-between items-center p-6 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+          Can it connect to our CRM and calendar?
+          <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer px-6 pb-6 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Yes. Infoteon integrates with Salesforce, HubSpot, Pipedrive, Zoho, Google Calendar, and 100+ other tools. Every call outcome — lead status, booking, disqualification reason — syncs automatically without any manual entry.</div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <button class="w-full flex justify-between items-center p-6 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+          Is this only for inbound calls, or can it do outbound too?
+          <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer px-6 pb-6 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Both. You can use Infoteon to answer inbound calls 24/7 and to run outbound campaigns against your CRM lists — re-engaging stale leads, calling back no-shows, or running first-touch telemarketing sequences. The same agent, two directions.</div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <button class="w-full flex justify-between items-center p-6 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+          How quickly can we go live?
+          <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer px-6 pb-6 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Most businesses are live within one day. Connect your phone number, upload your knowledge base, configure your qualification questions and calendar rules, and launch. No technical expertise required — our onboarding team walks you through every step.</div>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <button class="w-full flex justify-between items-center p-6 text-left font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+          What languages does the AI support?
+          <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer px-6 pb-6 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Infoteon supports English, Spanish, Portuguese, French, German, Italian, and 20+ other languages. Each voice is built by native speakers for natural pronunciation. You can deploy separate agents per language or let the AI detect and adapt automatically.</div>
+      </div>
+    </div>
+    <div class="mt-12 bg-white dark:bg-gray-900 rounded-2xl p-10 border border-gray-200 dark:border-gray-700 text-center">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2" id="t-faq-still">Still have questions?</h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-6" id="t-faq-still-sub">Our team is here to help. Reach out and we'll get back to you within 24 hours.</p>
+      <a href="mailto:helpdesk@infoteon.com" class="gradient-btn text-white px-8 py-3 rounded-full font-semibold inline-block hover:shadow-lg transition-all" id="t-faq-contact">Contact Support</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<div class="py-16 px-4 sm:px-6 lg:px-8" style="background:linear-gradient(to right,#2563eb,#06b6d4)">
+  <div class="max-w-4xl mx-auto text-center text-white">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-4" id="t-footer-cta-h">Your next booked meeting is one missed call away.</h2>
+    <p class="text-lg mb-8 opacity-90" id="t-footer-cta-sub">Every hour without Infoteon is revenue your competitor might answer. Start today.</p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-200" id="t-footer-watch">Watch Demo</button>
+      <button class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-200" id="t-footer-schedule">Schedule a Call</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
+      <div class="lg:col-span-2">
+        <span class="text-3xl font-bold gradient-footer-text mb-4 inline-block">Infoteon</span>
+        <p class="text-gray-400 mb-6 leading-relaxed" id="t-footer-desc">Stop losing revenue to missed calls. Infoteon AI voice agents qualify leads, book appointments, and recover revenue — 24/7.</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:helpdesk@infoteon.com" class="hover:text-white transition-colors">helpdesk@infoteon.com</a>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.39 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.13 6.13l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <a href="tel:+14077819891" class="hover:text-white transition-colors">+1 (407) 781-9891</a>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>USA, Argentina, Brazil, Mexico, Canada, Chile, Colombia, Peru, Ecuador</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-4">Platform</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-white transition-colors">Multi-language</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Crystal Voice</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Blast Performance</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Multi-sessions</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Command &amp; Control</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Private Telecom Network</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-4">Solutions</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-white transition-colors">Lead Qualification</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Appointment Setting</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Outbound Campaigns</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Call Center Automation</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Dispatch &amp; Field Services</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">White-Label Agency</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-4">Support</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="mailto:helpdesk@infoteon.com" class="hover:text-white transition-colors">helpdesk@infoteon.com</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-semibold mb-4">Legal</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms-of-service.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+          <li><a href="/sla.html" class="hover:text-white transition-colors">SLA</a></li>
+          <li><a href="/fair-use-policy.html" class="hover:text-white transition-colors">Fair Use Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 pt-8 text-center">
+      <p class="text-sm text-gray-400" id="t-footer-copyright">© 2026 Infoteon, LLC. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Theme ──────────────────────────────────────────────────────────
+  function applyTheme(dark) {
+    document.documentElement.classList.toggle('dark', dark);
+    document.getElementById('icon-moon').classList.toggle('hidden', dark);
+    document.getElementById('icon-sun').classList.toggle('hidden', !dark);
+    document.getElementById('icon-moon-m').classList.toggle('hidden', dark);
+    document.getElementById('icon-sun-m').classList.toggle('hidden', !dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }
+  function toggleTheme() {
+    applyTheme(!document.documentElement.classList.contains('dark'));
+  }
+  // Init from saved preference or system
+  (function() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(saved ? saved === 'dark' : prefersDark);
+  })();
+
+  // ── Language ───────────────────────────────────────────────────────
+  const translations = {
+    en: {
+      nav_login: 'Login', nav_demo: 'Watch Demo',
+      hero_badge: 'AI That Calls Back in Under 60 Seconds',
+      hero_h1: 'Stop Losing Revenue to', hero_h2: 'Missed Calls &amp; Slow Follow-Up',
+      hero_sub: "Infoteon's AI voice agents answer every call, qualify every lead, and book every appointment — 24/7 — so your sales team only talks to buyers who are ready to close.",
+      hero_cta: 'Watch Demo', hero_agent_active: 'AI Agent Active', hero_calls: 'Handling 247 calls/day',
+      hero_speech: '"Hi, I\'m calling from Infoteon — you requested more information about our plans. I have a couple of quick questions to point you in the right direction. Do you have 90 seconds?"',
+      hero_live: 'Live transcription • Sentiment: Positive • Lead: Qualified',
+      feat_h1: 'Four Ways Businesses', feat_h2: 'Win More Revenue with Infoteon',
+      feat_sub: 'Every feature is built around one goal: turning phone conversations into booked meetings, closed deals, and happier customers — without adding headcount.',
+      learn_more: 'Learn more',
+      stats_cta: 'Hundreds of businesses are turning missed calls into booked meetings, <strong class="text-white">qualified pipelines</strong>, and closed revenue — without adding a single headcount.',
+      faq_still: 'Still have questions?', faq_still_sub: "Our team is here to help. Reach out and we'll get back to you within 24 hours.", faq_contact: 'Contact Support',
+      footer_copyright: '© 2026 Infoteon, LLC. All rights reserved.',
+      footer_desc: 'Stop losing revenue to missed calls. Infoteon AI voice agents qualify leads, book appointments, and recover revenue — 24/7.',
+      footer_cta_h: 'Your next booked meeting is one missed call away.',
+      footer_cta_sub: 'Every hour without Infoteon is revenue your competitor might answer. Start today.',
+      footer_watch: 'Watch Demo', footer_schedule: 'Schedule a Call',
+    },
+    pt: {
+      nav_login: 'Entrar', nav_demo: 'Ver Demo',
+      hero_badge: 'IA que Liga de Volta em Menos de 60 Segundos',
+      hero_h1: 'Pare de Perder Receita com', hero_h2: 'Chamadas Perdidas e Follow-Up Lento',
+      hero_sub: 'Os agentes de voz IA da Infoteon atendem cada chamada, qualificam cada lead e agendam cada consulta — 24/7 — para que sua equipe de vendas fale apenas com compradores prontos para fechar.',
+      hero_cta: 'Ver Demo', hero_agent_active: 'Agente IA Ativo', hero_calls: 'Atendendo 247 chamadas/dia',
+      hero_speech: '"Olá, estou ligando da Infoteon — você solicitou mais informações sobre nossos planos. Tenho algumas perguntas rápidas para te direcionar corretamente. Você tem 90 segundos?"',
+      hero_live: 'Transcrição ao vivo • Sentimento: Positivo • Lead: Qualificado',
+      feat_h1: 'Quatro Formas de Empresas', feat_h2: 'Ganhar Mais Receita com o Infoteon',
+      feat_sub: 'Cada funcionalidade foi criada em torno de um objetivo: transformar conversas telefônicas em reuniões agendadas, negócios fechados e clientes mais satisfeitos — sem contratar mais pessoas.',
+      learn_more: 'Saiba mais',
+      stats_cta: 'Centenas de empresas estão convertendo chamadas perdidas em reuniões agendadas, <strong class="text-white">pipelines qualificados</strong>, e receita fechada — sem contratar uma única pessoa.',
+      faq_still: 'Ainda tem dúvidas?', faq_still_sub: 'Nossa equipe está aqui para ajudar. Entre em contato e responderemos em até 24 horas.', faq_contact: 'Contatar Suporte',
+      footer_copyright: '© 2026 Infoteon, LLC. Todos os direitos reservados.',
+      footer_desc: 'Pare de perder receita com chamadas perdidas. Os agentes de voz IA da Infoteon qualificam leads, agendam consultas e recuperam receita — 24/7.',
+      footer_cta_h: 'Sua próxima reunião agendada está a uma chamada perdida de distância.',
+      footer_cta_sub: 'Cada hora sem a Infoteon é receita que seu concorrente pode estar respondendo. Comece hoje.',
+      footer_watch: 'Ver Demo', footer_schedule: 'Agendar uma Chamada',
+    },
+    es: {
+      nav_login: 'Iniciar sesión', nav_demo: 'Ver Demo',
+      hero_badge: 'IA que Devuelve Llamadas en Menos de 60 Segundos',
+      hero_h1: 'Deja de Perder Ingresos por', hero_h2: 'Llamadas Perdidas y Seguimiento Lento',
+      hero_sub: 'Los agentes de voz IA de Infoteon responden cada llamada, califican cada lead y agendan cada cita — 24/7 — para que tu equipo de ventas solo hable con compradores listos para cerrar.',
+      hero_cta: 'Ver Demo', hero_agent_active: 'Agente IA Activo', hero_calls: 'Gestionando 247 llamadas/día',
+      hero_speech: '"Hola, llamo de Infoteon — solicitaste más información sobre nuestros planes. Tengo un par de preguntas rápidas para orientarte mejor. ¿Tienes 90 segundos?"',
+      hero_live: 'Transcripción en vivo • Sentimiento: Positivo • Lead: Calificado',
+      feat_h1: 'Cuatro Formas en que las Empresas', feat_h2: 'Ganan Más Ingresos con Infoteon',
+      feat_sub: 'Cada función fue creada con un único objetivo: convertir conversaciones telefónicas en reuniones agendadas, negocios cerrados y clientes más satisfechos — sin aumentar el equipo.',
+      learn_more: 'Saber más',
+      stats_cta: 'Cientos de empresas están convirtiendo llamadas perdidas en reuniones agendadas, <strong class="text-white">pipelines calificados</strong>, e ingresos cerrados — sin contratar una sola persona.',
+      faq_still: '¿Aún tienes preguntas?', faq_still_sub: 'Nuestro equipo está aquí para ayudarte. Contáctanos y te responderemos en 24 horas.', faq_contact: 'Contactar Soporte',
+      footer_copyright: '© 2026 Infoteon, LLC. Todos los derechos reservados.',
+      footer_desc: 'Deja de perder ingresos por llamadas perdidas. Los agentes de voz IA de Infoteon califican leads, agendan citas y recuperan ingresos — 24/7.',
+      footer_cta_h: 'Tu próxima reunión agendada está a una llamada perdida de distancia.',
+      footer_cta_sub: 'Cada hora sin Infoteon es un ingreso que tu competidor podría estar respondiendo. Empieza hoy.',
+      footer_watch: 'Ver Demo', footer_schedule: 'Programar una Llamada',
+    }
+  };
+
+  let currentLang = 'en';
+
+  function setLang(code, flag, label) {
+    currentLang = code;
+    // Update flag/label in header
+    document.getElementById('lang-flag').textContent = flag;
+    document.getElementById('lang-label').textContent = label;
+    document.getElementById('lang-flag-m').textContent = flag;
+    document.getElementById('lang-label-m').textContent = label;
+    // Highlight active
+    document.querySelectorAll('.lang-opt').forEach((b, i) => {
+      const langs = ['en','pt','es'];
+      b.classList.toggle('bg-blue-50', langs[i] === code);
+      b.classList.toggle('dark:bg-blue-900/30', langs[i] === code);
+      b.classList.toggle('text-blue-600', langs[i] === code);
+    });
+    document.getElementById('lang-dropdown').classList.remove('open');
+    document.getElementById('lang-chevron').style.transform = '';
+    // Apply translations
+    const t = translations[code];
+    setT('t-nav-login', t.nav_login);
+    setT('t-nav-demo', t.nav_demo);
+    setT('t-hero-badge', t.hero_badge);
+    setT('t-hero-h1', t.hero_h1);
+    setT('t-hero-h2', t.hero_h2);
+    setT('t-hero-sub', t.hero_sub);
+    setT('t-hero-cta', t.hero_cta);
+    setT('t-hero-active', t.hero_agent_active);
+    setT('t-hero-calls', t.hero_calls);
+    setT('t-hero-speech', t.hero_speech);
+    setT('t-hero-live', t.hero_live);
+    setT('t-feat-h1', t.feat_h1);
+    setT('t-feat-h2', t.feat_h2);
+    setT('t-feat-sub', t.feat_sub);
+    document.querySelectorAll('.t-learn-more').forEach(el => el.textContent = t.learn_more);
+    document.getElementById('t-stats-cta').innerHTML = t.stats_cta;
+    setT('t-faq-still', t.faq_still);
+    setT('t-faq-still-sub', t.faq_still_sub);
+    setT('t-faq-contact', t.faq_contact);
+    setT('t-footer-copyright', t.footer_copyright);
+    setT('t-footer-desc', t.footer_desc);
+    setT('t-footer-cta-h', t.footer_cta_h);
+    setT('t-footer-cta-sub', t.footer_cta_sub);
+    setT('t-footer-watch', t.footer_watch);
+    setT('t-footer-schedule', t.footer_schedule);
+  }
+  function setT(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  function toggleLang(e) {
+    e.stopPropagation();
+    const dd = document.getElementById('lang-dropdown');
+    const chevron = document.getElementById('lang-chevron');
+    dd.classList.toggle('open');
+    chevron.style.transform = dd.classList.contains('open') ? 'rotate(180deg)' : '';
+  }
+  document.addEventListener('click', () => {
+    document.getElementById('lang-dropdown').classList.remove('open');
+    document.getElementById('lang-chevron').style.transform = '';
+  });
+
+  // ── Accordion / tabs ───────────────────────────────────────────────
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const icon = btn.querySelector('.faq-icon');
+    answer.classList.toggle('open');
+    icon.style.transform = answer.classList.contains('open') ? 'rotate(180deg)' : '';
+  }
+
+  function toggleHighlight(btn) {
+    const content = btn.nextElementSibling;
+    const chevron = btn.querySelector('.chevron');
+    content.classList.toggle('hidden');
+    chevron.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
+  }
+
+  function selectUC(btn) {
+    document.querySelectorAll('.uc-btn').forEach(b => {
+      b.classList.remove('active');
+      b.classList.add('text-gray-700');
+    });
+    btn.classList.add('active');
+    btn.classList.remove('text-gray-700');
+  }
+</script>
+</body>
+</html>

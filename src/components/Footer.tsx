@@ -50,7 +50,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
           <div className="lg:col-span-2">
             <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4 inline-block">
-              INFOTEON
+              Infoteon
             </span>
             <p className="text-gray-400 dark:text-gray-500 mb-6 leading-relaxed">
               {t.footer_desc}
@@ -71,7 +71,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <MapPin size={16} className="text-blue-400 dark:text-blue-500" />
-                <span>8466 Lockwood Ridge Rd, Sarasota FL 34243</span>
+                <span>USA, Argentina, Brazil, Mexico, Canada, Chile, Colombia, Peru, Ecuador</span>
               </div>
             </div>
           </div>
