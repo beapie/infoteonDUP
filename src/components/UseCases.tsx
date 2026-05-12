@@ -69,16 +69,7 @@ export default function UseCases() {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-500/20 rounded-3xl blur-3xl" />
 
-            <div className={`relative rounded-3xl overflow-hidden border border-gray-700/50 aspect-square sm:aspect-auto sm:h-96 flex items-center justify-center group bg-cover bg-center`} style={{ backgroundImage: 'url(/callhub.jpeg)' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 to-gray-900/40" />
-
-              <button
-                onClick={() => setShowWidget(true)}
-                className="relative z-10 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-4 sm:px-8 py-2 sm:py-4 rounded-full font-semibold text-sm sm:text-base hover:shadow-2xl hover:scale-105 transition-all duration-200 flex items-center gap-2"
-              >
-                <Play size={16} className="fill-white" />
-                {t.uc_hear}
-              </button>
+            <div className="relative rounded-3xl overflow-hidden border border-gray-700/50 aspect-square sm:aspect-auto sm:h-96 bg-cover bg-center" style={{ backgroundImage: 'url(/callhub.jpeg)' }}>
             </div>
 
             <button
