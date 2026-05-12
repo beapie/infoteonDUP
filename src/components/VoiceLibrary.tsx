@@ -17,7 +17,7 @@ export default function VoiceLibrary() {
     },
     {
       name: 'Ellie',
-      language: 'English (UK)',
+      language: 'Spanish',
       personality: t.vl_e_personality,
       industry: t.vl_e_industry,
       gradient: 'from-purple-500 to-purple-600',
