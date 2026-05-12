@@ -25,7 +25,7 @@ export default function HowItWorks() {
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 dark:from-gray-800 dark:to-black rounded-2xl border border-gray-700 dark:border-gray-800 overflow-hidden shadow-2xl">
             <div className="aspect-video bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center relative group">
               <img
-                src="/Dashboard Preview/issue1.jpg"
+                src="/aivoice.webp"
                 alt="Dashboard Preview"
                 className="w-full h-full object-cover"
               />
