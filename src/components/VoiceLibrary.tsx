@@ -1,8 +1,11 @@
-import { Play, User } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Play, Pause, User } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function VoiceLibrary() {
   const { t } = useLanguage();
+  const [playingName, setPlayingName] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const agents = [
     {
@@ -28,26 +31,44 @@ export default function VoiceLibrary() {
     },
     {
       name: 'Rachel',
-      language: 'Spanish',
+      language: 'French',
       personality: t.vl_r_personality,
       industry: t.vl_r_industry,
       gradient: 'from-pink-500 to-pink-600',
     },
     {
       name: 'Zyan',
-      language: 'English (AU)',
+      language: 'Turkish',
       personality: t.vl_z_personality,
       industry: t.vl_z_industry,
       gradient: 'from-cyan-500 to-cyan-600',
     },
     {
       name: 'Clara',
-      language: 'French',
+      language: 'Portuguese',
       personality: t.vl_c_personality,
       industry: t.vl_c_industry,
       gradient: 'from-green-500 to-green-600',
     },
   ];
+
+  const handlePlay = (name: string) => {
+    if (playingName === name) {
+      audioRef.current?.pause();
+      setPlayingName(null);
+      return;
+    }
+
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+
+    const audio = new Audio(`/audio/${name}.mp3`);
+    audioRef.current = audio;
+    audio.play();
+    setPlayingName(name);
+    audio.onended = () => setPlayingName(null);
+  };
 
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
@@ -78,8 +99,18 @@ export default function VoiceLibrary() {
                     <User className="w-8 h-8 text-white" />
                   </div>
 
-                  <button className="w-10 h-10 rounded-full bg-white dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 flex items-center justify-center hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-600 transition-all group-hover:scale-110">
-                    <Play size={16} className="text-gray-700 dark:text-gray-200 ml-0.5" />
+                  <button
+                    onClick={() => handlePlay(agent.name)}
+                    className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all group-hover:scale-110 ${
+                      playingName === agent.name
+                        ? 'bg-blue-500 border-blue-500 text-white'
+                        : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-600'
+                    }`}
+                  >
+                    {playingName === agent.name
+                      ? <Pause size={16} className="text-white" />
+                      : <Play size={16} className="text-gray-700 dark:text-gray-200 ml-0.5" />
+                    }
                   </button>
                 </div>
 
