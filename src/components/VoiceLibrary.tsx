@@ -10,13 +10,15 @@ export default function VoiceLibrary() {
   const agents = [
     {
       name: 'Marcus',
+      audioFile: 'Marcus',
       language: 'English (US)',
       personality: t.vl_m_personality,
       industry: t.vl_m_industry,
       gradient: 'from-blue-500 to-blue-600',
     },
     {
-      name: 'Ellie',
+      name: 'Ria',
+      audioFile: 'Ellie',
       language: 'Spanish',
       personality: t.vl_e_personality,
       industry: t.vl_e_industry,
@@ -24,6 +26,7 @@ export default function VoiceLibrary() {
     },
     {
       name: 'Alex',
+      audioFile: 'Alex',
       language: 'English (US)',
       personality: t.vl_a_personality,
       industry: t.vl_a_industry,
@@ -31,6 +34,7 @@ export default function VoiceLibrary() {
     },
     {
       name: 'Rachel',
+      audioFile: 'Rachel',
       language: 'French',
       personality: t.vl_r_personality,
       industry: t.vl_r_industry,
@@ -38,6 +42,7 @@ export default function VoiceLibrary() {
     },
     {
       name: 'Zyan',
+      audioFile: 'Zyan',
       language: 'Turkish',
       personality: t.vl_z_personality,
       industry: t.vl_z_industry,
@@ -45,6 +50,7 @@ export default function VoiceLibrary() {
     },
     {
       name: 'Clara',
+      audioFile: 'Clara',
       language: 'Portuguese',
       personality: t.vl_c_personality,
       industry: t.vl_c_industry,
@@ -52,7 +58,7 @@ export default function VoiceLibrary() {
     },
   ];
 
-  const handlePlay = (name: string) => {
+  const handlePlay = (name: string, audioFile: string) => {
     if (playingName === name) {
       audioRef.current?.pause();
       setPlayingName(null);
@@ -63,7 +69,7 @@ export default function VoiceLibrary() {
       audioRef.current.pause();
     }
 
-    const audio = new Audio(`/audio/${name}.mp3`);
+    const audio = new Audio(`/audio/${audioFile}.mp3`);
     audioRef.current = audio;
     audio.play();
     setPlayingName(name);
@@ -100,7 +106,7 @@ export default function VoiceLibrary() {
                   </div>
 
                   <button
-                    onClick={() => handlePlay(agent.name)}
+                    onClick={() => handlePlay(agent.name, agent.audioFile)}
                     className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all group-hover:scale-110 ${
                       playingName === agent.name
                         ? 'bg-blue-500 border-blue-500 text-white'
