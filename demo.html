@@ -20,7 +20,7 @@
     .animate-pulse { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
     .faq-answer { display: none; }
     .faq-answer.open { display: block; }
-    .uc-btn.active { background: linear-gradient(to right, #2563eb, #06b6d4); color: white; }
+    .uc-btn.active { border-color: #3b82f6 !important; color: #60a5fa !important; background: transparent; }
     .hero-section { background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #ecfeff 100%); }
     .dark .hero-section { background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%); }
     #lang-dropdown { display: none; }
@@ -145,278 +145,26 @@
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        <span id="t-feat-h1">Four Ways Businesses</span> <span class="gradient-text" id="t-feat-h2">Win More Revenue with Infoteon</span>
-      </h2>
-      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" id="t-feat-sub">
-        Every feature is built around one goal: turning phone conversations into booked meetings, closed deals, and happier customers — without adding headcount.
-      </p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Instant Lead Qualification</h3>
-        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">The AI calls back form submissions within 60 seconds, asks budget, authority, and timeline questions, and routes only serious buyers to a human closer. Bad-fit leads are logged with reasons — your team never wastes time on cold prospects.</p>
-        <div class="mt-6 text-blue-600 font-semibold t-learn-more">Learn more →</div>
-      </div>
-      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.39 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.13 6.13l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Appointment Setting on Autopilot</h3>
-        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Interested prospects disappear when booking requires voicemail or back-and-forth messages. Infoteon checks your calendar, proposes open slots, confirms the meeting, and sends reminders — converting intent into revenue before it goes cold.</p>
-        <div class="mt-6 font-semibold t-learn-more" style="color:#a855f7">Learn more →</div>
-      </div>
-      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#f97316,#ef4444)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Outbound Re-Engagement Campaigns</h3>
-        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Stale leads, no-shows, and lost deals are untapped pipeline. The AI dials your CRM lists, handles the repetitive first-touch work, overcomes common objections, and hands off only warm opportunities — keeping your SDRs focused on closing.</p>
-        <div class="mt-6 font-semibold t-learn-more" style="color:#f97316">Learn more →</div>
-      </div>
-      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#22c55e,#14b8a6)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">After-Hours Call Coverage</h3>
-        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Every missed call after 5 PM is a lead your competitor may answer. Infoteon captures caller details, logs structured messages, and routes urgent cases in real time — so no inquiry slips through, even when your team is offline.</p>
-        <div class="mt-6 font-semibold t-learn-more" style="color:#22c55e">Learn more →</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES ADVANCED -->
-<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <span class="inline-block bg-blue-900/50 text-blue-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">Platform Features</span>
-      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
-        The Intelligence Behind Every <span class="gradient-text">Revenue-Generating Call</span>
-      </h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">AI Knowledge Base</h3>
-        <p class="text-gray-400 mb-6">Train the agent on your real business — no generic answers.</p>
-        <ul class="space-y-2">
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">✓</span> Upload pricing &amp; policies</li>
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">✓</span> Connect your SOPs &amp; FAQs</li>
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">✓</span> Consistent, accurate responses</li>
-        </ul>
-      </div>
-      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Post-Call Analytics</h3>
-        <p class="text-gray-400 mb-6">Every call becomes actionable business intelligence.</p>
-        <ul class="space-y-2">
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">✓</span> Transcripts &amp; sentiment scores</li>
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">✓</span> Objections &amp; competitor mentions</li>
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">✓</span> Improve scripts from real data</li>
-        </ul>
-      </div>
-      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#f97316,#ef4444)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Smart Call Transfer</h3>
-        <p class="text-gray-400 mb-6">AI handles the routine — humans close the important calls.</p>
-        <ul class="space-y-2">
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">✓</span> Live transfer to your team</li>
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">✓</span> Escalate high-value leads</li>
-          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">✓</span> Reduce unnecessary interruptions</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- HOW IT WORKS -->
-<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-12">
-      <span class="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">How It Works</span>
-      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+      <div class="inline-flex items-center gap-2 text-orange-500 mb-6">
+        <div class="w-2 h-2 rounded-full bg-orange-500"></div>
+        <span class="text-sm font-semibold uppercase tracking-wider">How It Works</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
         What if every missed call was <span class="gradient-text">automatically converted into revenue?</span>
       </h2>
     </div>
-    <div class="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 max-w-5xl mx-auto">
+    <div class="rounded-2xl overflow-hidden border border-gray-700 max-w-5xl mx-auto">
       <img src="/aivoice.webp" alt="AI Voice Agent Dashboard" class="w-full h-auto">
     </div>
   </div>
 </section>
 
-<!-- STATISTICS -->
-<section class="py-24 px-4 sm:px-6 lg:px-8" style="background:linear-gradient(135deg,#1e3a5f,#0c4a6e,#164e63)">
-  <div class="max-w-7xl mx-auto text-center">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-      <div>
-        <div class="text-5xl font-bold text-white mb-2">980+</div>
-        <div class="text-blue-200">Active Businesses</div>
-      </div>
-      <div>
-        <div class="text-5xl font-bold text-white mb-2">1M+</div>
-        <div class="text-blue-200">Calls Handled</div>
-      </div>
-      <div>
-        <div class="text-5xl font-bold text-white mb-2">98%</div>
-        <div class="text-blue-200">Satisfaction Rate</div>
-      </div>
-      <div>
-        <div class="text-5xl font-bold text-white mb-2">$900K+</div>
-        <div class="text-blue-200">Revenue Recovered</div>
-      </div>
-    </div>
-    <p class="text-blue-100 text-lg max-w-3xl mx-auto" id="t-stats-cta">
-      Hundreds of businesses are turning missed calls into booked meetings, <strong class="text-white">qualified pipelines</strong>, and closed revenue — without adding a single headcount.
-    </p>
-  </div>
-</section>
-
-<!-- USE CASES -->
-<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-12">
-      <span class="inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">Use-Cases</span>
-      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        Every Industry Has Calls to Answer <span class="gradient-text">and Revenue to Recover</span>
-      </h2>
-    </div>
-    <div class="flex flex-wrap gap-3 justify-center mb-10">
-      <button class="uc-btn active px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm transition-all" onclick="selectUC(this)">Real Estate</button>
-      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Human Resources</button>
-      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Retail</button>
-      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Legal</button>
-      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Sales Teams</button>
-      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Field Services</button>
-      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Hospitality</button>
-      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Education</button>
-      <button class="uc-btn px-5 py-2 rounded-full border border-gray-200 dark:border-gray-700 font-medium text-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 transition-all" onclick="selectUC(this)">Healthcare</button>
-    </div>
-    <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-10 border border-gray-200 dark:border-gray-700 text-center">
-      <p class="text-gray-500 dark:text-gray-400 text-lg">Live Agent Dashboard — Real-time call intelligence</p>
-      <p class="text-gray-400 dark:text-gray-500 mt-2 text-sm">Interactive dashboard preview available in the full app</p>
-    </div>
-  </div>
-</section>
-
-<!-- VOICE LIBRARY -->
-<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800 transition-colors duration-200">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        Meet Your <span class="gradient-text">AI Voice Agents</span>
-      </h2>
-      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        Each agent is trained for a specific industry and conversation style — so every caller gets an experience that feels like it was built for them
-      </p>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">M</div>
-          <div>
-            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Marcus</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">English (US)</p>
-          </div>
-          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </button>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Professional &amp; Persuasive</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Sales &amp; Business Development</p>
-      </div>
-      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">E</div>
-          <div>
-            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Ellie</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">English (UK)</p>
-          </div>
-          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </button>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Friendly &amp; Empathetic</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Customer Support</p>
-      </div>
-      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#f97316,#ef4444)">A</div>
-          <div>
-            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Alex</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">English (US)</p>
-          </div>
-          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#f97316,#ef4444)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </button>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Energetic &amp; Dynamic</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Marketing &amp; Outreach</p>
-      </div>
-      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">R</div>
-          <div>
-            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Rachel</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Spanish</p>
-          </div>
-          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </button>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Warm &amp; Helpful</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Healthcare &amp; Wellness</p>
-      </div>
-      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">Z</div>
-          <div>
-            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Zyan</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">English (AU)</p>
-          </div>
-          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </button>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Confident &amp; Technical</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Tech &amp; SaaS</p>
-      </div>
-      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all">
-        <div class="flex items-center gap-4 mb-4">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background:linear-gradient(135deg,#22c55e,#16a34a)">C</div>
-          <div>
-            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Clara</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">French</p>
-          </div>
-          <button class="ml-auto w-10 h-10 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </button>
-        </div>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1"><span class="font-semibold">Personality:</span> Elegant &amp; Professional</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Industry:</span> Luxury &amp; Retail</p>
-      </div>
-    </div>
-    <div class="text-center mt-10">
-      <button class="border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 px-8 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all">Explore All Voices</button>
-    </div>
-  </div>
-</section>
-
 <!-- HIGHLIGHTS -->
-<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-200">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
       <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -519,6 +267,354 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- FEATURES ADVANCED -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block bg-blue-900/50 text-blue-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">Platform Features</span>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+        The Intelligence Behind Every <span class="gradient-text">Revenue-Generating Call</span>
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">AI Knowledge Base</h3>
+        <p class="text-gray-400 mb-6">Train the agent on your real business — no generic answers.</p>
+        <ul class="space-y-2">
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">&#10003;</span> Upload pricing &amp; policies</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">&#10003;</span> Connect your SOPs &amp; FAQs</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-blue-400">&#10003;</span> Consistent, accurate responses</li>
+        </ul>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">Post-Call Analytics</h3>
+        <p class="text-gray-400 mb-6">Every call becomes actionable business intelligence.</p>
+        <ul class="space-y-2">
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">&#10003;</span> Transcripts &amp; sentiment scores</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">&#10003;</span> Objections &amp; competitor mentions</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span style="color:#a855f7">&#10003;</span> Improve scripts from real data</li>
+        </ul>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#f97316,#ef4444)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">Smart Call Transfer</h3>
+        <p class="text-gray-400 mb-6">AI handles the routine — humans close the important calls.</p>
+        <ul class="space-y-2">
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">&#10003;</span> Live transfer to your team</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">&#10003;</span> Escalate high-value leads</li>
+          <li class="flex items-center gap-2 text-gray-300 text-sm"><span class="text-orange-400">&#10003;</span> Reduce unnecessary interruptions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <span id="t-feat-h1">Four Ways Businesses</span> <span class="gradient-text" id="t-feat-h2">Win More Revenue with Infoteon</span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" id="t-feat-sub">
+        Every feature is built around one goal: turning phone conversations into booked meetings, closed deals, and happier customers — without adding headcount.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Instant Lead Qualification</h3>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">The AI calls back form submissions within 60 seconds, asks budget, authority, and timeline questions, and routes only serious buyers to a human closer. Bad-fit leads are logged with reasons — your team never wastes time on cold prospects.</p>
+        <div class="mt-6 text-blue-600 font-semibold t-learn-more">Learn more &rarr;</div>
+      </div>
+      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.64 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.39 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.13 6.13l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Appointment Setting on Autopilot</h3>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Interested prospects disappear when booking requires voicemail or back-and-forth messages. Infoteon checks your calendar, proposes open slots, confirms the meeting, and sends reminders — converting intent into revenue before it goes cold.</p>
+        <div class="mt-6 font-semibold t-learn-more" style="color:#a855f7">Learn more &rarr;</div>
+      </div>
+      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#f97316,#ef4444)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Outbound Re-Engagement Campaigns</h3>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Stale leads, no-shows, and lost deals are untapped pipeline. The AI dials your CRM lists, handles the repetitive first-touch work, overcomes common objections, and hands off only warm opportunities — keeping your SDRs focused on closing.</p>
+        <div class="mt-6 font-semibold t-learn-more" style="color:#f97316">Learn more &rarr;</div>
+      </div>
+      <div class="group bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6" style="background:linear-gradient(135deg,#22c55e,#14b8a6)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">After-Hours Call Coverage</h3>
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Every missed call after 5 PM is a lead your competitor may answer. Infoteon captures caller details, logs structured messages, and routes urgent cases in real time — so no inquiry slips through, even when your team is offline.</p>
+        <div class="mt-6 font-semibold t-learn-more" style="color:#22c55e">Learn more &rarr;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16">
+      <div class="inline-flex items-center gap-2 text-orange-500 mb-6">
+        <div class="w-2 h-2 rounded-full bg-orange-500"></div>
+        <span class="text-sm font-semibold uppercase tracking-wider">Use-Cases</span>
+      </div>
+      <h2 class="text-2xl xs:text-3xl sm:text-5xl font-bold text-white mb-4">
+        Every Industry Has Calls to Answer<br>
+        and Revenue to Recover
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <button class="uc-btn active px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-blue-500 text-blue-400" onclick="selectUC(this)">Real Estate</button>
+          <button class="uc-btn px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300" onclick="selectUC(this)">Human Resources</button>
+          <button class="uc-btn px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300" onclick="selectUC(this)">Retail</button>
+          <button class="uc-btn px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300" onclick="selectUC(this)">Legal</button>
+          <button class="uc-btn px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300" onclick="selectUC(this)">Sales Teams</button>
+          <button class="uc-btn px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300" onclick="selectUC(this)">Field Services</button>
+          <button class="uc-btn px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300" onclick="selectUC(this)">Hospitality</button>
+          <button class="uc-btn px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300" onclick="selectUC(this)">Education</button>
+          <button class="uc-btn px-4 sm:px-6 py-3 sm:py-4 rounded-full border-2 font-semibold text-sm sm:text-base transition-all duration-300 border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300" onclick="selectUC(this)">Healthcare</button>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-500/20 rounded-3xl blur-3xl"></div>
+        <div class="relative rounded-3xl overflow-hidden border border-gray-700/50 aspect-square sm:aspect-auto sm:h-96 bg-cover bg-center" style="background-image: url(/callhub.jpeg)">
+        </div>
+        <button class="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 gradient-btn text-white px-4 sm:px-8 py-2 sm:py-4 rounded-full font-semibold text-sm sm:text-base hover:shadow-2xl hover:scale-105 transition-all duration-200 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Hear It in Action
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE LIBRARY -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Meet Your <span class="gradient-text">AI Voice Agents</span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Each agent is trained for a specific industry and conversation style — so every caller gets an experience that feels like it was built for them
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Marcus -->
+      <div class="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 opacity-10 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <button onclick="playVoice('Marcus', this)" class="voice-btn w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-all group-hover:scale-110">
+              <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg class="pause-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Marcus</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Language</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">English (US)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Personality</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Professional &amp; Persuasive</span>
+            </div>
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full text-white text-xs font-semibold" style="background:linear-gradient(to right,#3b82f6,#2563eb)">Sales &amp; Business Development</div>
+        </div>
+      </div>
+      <!-- Ria -->
+      <div class="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500 to-purple-600 opacity-10 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <button onclick="playVoice('Ellie', this)" class="voice-btn w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-all group-hover:scale-110">
+              <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg class="pause-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Ria</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Language</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Spanish</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Personality</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Friendly &amp; Empathetic</span>
+            </div>
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full text-white text-xs font-semibold" style="background:linear-gradient(to right,#a855f7,#7c3aed)">Customer Support</div>
+        </div>
+      </div>
+      <!-- Alex -->
+      <div class="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500 to-orange-600 opacity-10 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#f97316,#ef4444)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <button onclick="playVoice('Alex', this)" class="voice-btn w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-all group-hover:scale-110">
+              <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg class="pause-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Alex</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Language</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">English (US)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Personality</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Energetic &amp; Dynamic</span>
+            </div>
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full text-white text-xs font-semibold" style="background:linear-gradient(to right,#f97316,#ef4444)">Marketing &amp; Outreach</div>
+        </div>
+      </div>
+      <!-- Rachel -->
+      <div class="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-500 to-pink-600 opacity-10 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <button onclick="playVoice('Rachel', this)" class="voice-btn w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-all group-hover:scale-110">
+              <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg class="pause-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Rachel</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Language</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">French</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Personality</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Warm &amp; Helpful</span>
+            </div>
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full text-white text-xs font-semibold" style="background:linear-gradient(to right,#ec4899,#f43f5e)">Healthcare &amp; Wellness</div>
+        </div>
+      </div>
+      <!-- Zyan -->
+      <div class="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-500 to-cyan-600 opacity-10 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <button onclick="playVoice('Zyan', this)" class="voice-btn w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-all group-hover:scale-110">
+              <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg class="pause-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Zyan</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Language</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Turkish</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Personality</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Confident &amp; Technical</span>
+            </div>
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full text-white text-xs font-semibold" style="background:linear-gradient(to right,#06b6d4,#0891b2)">Tech &amp; SaaS</div>
+        </div>
+      </div>
+      <!-- Clara -->
+      <div class="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500 to-green-600 opacity-10 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="relative">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <button onclick="playVoice('Clara', this)" class="voice-btn w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-all group-hover:scale-110">
+              <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg class="pause-icon hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Clara</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Language</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Portuguese</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Personality</span>
+              <span class="text-sm text-gray-700 dark:text-gray-300">Elegant &amp; Professional</span>
+            </div>
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full text-white text-xs font-semibold" style="background:linear-gradient(to right,#22c55e,#16a34a)">Luxury &amp; Retail</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-12">
+      <button class="gradient-btn text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-200">Explore All Voices</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATISTICS -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-800 via-gray-900 to-gray-900">
+  <div class="max-w-7xl mx-auto text-center">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">980+</div>
+        <div class="text-blue-200">Active Businesses</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">1M+</div>
+        <div class="text-blue-200">Calls Handled</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">98%</div>
+        <div class="text-blue-200">Satisfaction Rate</div>
+      </div>
+      <div>
+        <div class="text-5xl font-bold text-white mb-2">$900K+</div>
+        <div class="text-blue-200">Revenue Recovered</div>
+      </div>
+    </div>
+    <p class="text-blue-100 text-lg max-w-3xl mx-auto" id="t-stats-cta">
+      Hundreds of businesses are turning missed calls into booked meetings, <strong class="text-white">qualified pipelines</strong>, and closed revenue — without adding a single headcount.
+    </p>
   </div>
 </section>
 
@@ -982,10 +1078,49 @@
   function selectUC(btn) {
     document.querySelectorAll('.uc-btn').forEach(b => {
       b.classList.remove('active');
-      b.classList.add('text-gray-700');
+      b.className = b.className.replace(/border-\w+-\d+/g, '').replace(/text-\w+-\d+/g, '');
+      b.classList.add('border-gray-600', 'text-gray-400');
     });
-    btn.classList.add('active');
-    btn.classList.remove('text-gray-700');
+    btn.classList.remove('border-gray-600', 'text-gray-400');
+    btn.classList.add('active', 'border-blue-500', 'text-blue-400');
+  }
+
+  // ── Voice playback ─────────────────────────────────────────────────
+  let currentAudio = null;
+  let currentVoiceBtn = null;
+
+  function playVoice(filename, btn) {
+    if (currentAudio && currentVoiceBtn === btn) {
+      currentAudio.pause();
+      resetBtn(btn);
+      currentAudio = null;
+      currentVoiceBtn = null;
+      return;
+    }
+    if (currentAudio) {
+      currentAudio.pause();
+      if (currentVoiceBtn) resetBtn(currentVoiceBtn);
+    }
+    const audio = new Audio('/audio/' + filename + '.mp3');
+    currentAudio = audio;
+    currentVoiceBtn = btn;
+    btn.classList.add('bg-blue-500', 'border-blue-500');
+    btn.classList.remove('bg-white', 'dark:bg-gray-700', 'border-gray-200', 'dark:border-gray-600');
+    btn.querySelector('.play-icon').classList.add('hidden');
+    btn.querySelector('.pause-icon').classList.remove('hidden');
+    audio.play();
+    audio.onended = function() {
+      resetBtn(btn);
+      currentAudio = null;
+      currentVoiceBtn = null;
+    };
+  }
+
+  function resetBtn(btn) {
+    btn.classList.remove('bg-blue-500', 'border-blue-500');
+    btn.classList.add('bg-white', 'dark:bg-gray-700', 'border-gray-200', 'dark:border-gray-600');
+    btn.querySelector('.play-icon').classList.remove('hidden');
+    btn.querySelector('.pause-icon').classList.add('hidden');
   }
 </script>
 </body>
